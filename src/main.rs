@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy::sprite::MaterialMesh2dBundle;
 
 #[derive(Component)]
 struct Person;
@@ -38,6 +39,71 @@ impl Plugin for HelloPlugin {
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .add_plugin(HelloPlugin)
+        .add_startup_system(hex_grid)
         .run();
+}
+
+fn hex_grid(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+) {
+    commands.spawn(Camera2dBundle::default());
+    // Hexagon middle
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(0., 0., 0.)),
+        ..default()
+    });
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(90., 0., 0.)),
+        ..default()
+    });
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(180., 0., 0.)),
+        ..default()
+    });
+    // Hexagon top
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(45., 80., 0.)),
+        ..default()
+    });
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(135., 80., 0.)),
+        ..default()
+    });
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(225., 80., 0.)),
+        ..default()
+    });
+    // Hexagon bottom
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(45., -80., 0.)),
+        ..default()
+    });
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(135., -80., 0.)),
+        ..default()
+    });
+    commands.spawn(MaterialMesh2dBundle {
+        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
+        transform: Transform::from_translation(Vec3::new(225., -80., 0.)),
+        ..default()
+    });
 }
