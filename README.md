@@ -1,2 +1,7 @@
 # hex grid demo
-- hexagonal grid demo created awith bevy game engine 
+Hexagonal grid demo created awith bevy game engine 
+
+- bevy:
+https://bevyengine.org/
+- how hexagonal grids work: 
+https://www.redblobgames.com/grids/hexagons/
