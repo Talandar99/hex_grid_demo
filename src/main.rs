@@ -50,60 +50,56 @@ fn hex_grid(
 ) {
     commands.spawn(Camera2dBundle::default());
     // Hexagon middle
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(0., 0., 0.)),
-        ..default()
-    });
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(90., 0., 0.)),
-        ..default()
-    });
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(180., 0., 0.)),
-        ..default()
-    });
-    // Hexagon top
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(45., 80., 0.)),
-        ..default()
-    });
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(135., 80., 0.)),
-        ..default()
-    });
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(225., 80., 0.)),
-        ..default()
-    });
-    // Hexagon bottom
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(45., -80., 0.)),
-        ..default()
-    });
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(135., -80., 0.)),
-        ..default()
-    });
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
-        material: materials.add(ColorMaterial::from(Color::DARK_GREEN)),
-        transform: Transform::from_translation(Vec3::new(225., -80., 0.)),
-        ..default()
-    });
+
+    let grid_height = 9;
+    let grid_width = 12;
+    let horizontal: f32 = 3.0_f32.sqrt() * 50.0;
+    let vert: f32 = 3. / 2. * 50.;
+    for x in 0..grid_width {
+        for y in 0..grid_height {
+            if y % 2 == 0 {
+                commands.spawn(MaterialMesh2dBundle {
+                    mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+                    material: materials.add(ColorMaterial::from(Color::BLACK)),
+                    transform: Transform::from_translation(Vec3::new(
+                        horizontal * (x as f32) - 500. as f32,
+                        vert * y as f32 - 250.,
+                        0.,
+                    )),
+                    ..default()
+                });
+                commands.spawn(MaterialMesh2dBundle {
+                    mesh: meshes.add(shape::RegularPolygon::new(48., 6).into()).into(),
+                    material: materials.add(ColorMaterial::from(Color::WHITE)),
+                    transform: Transform::from_translation(Vec3::new(
+                        horizontal * (x as f32) - 500. as f32,
+                        vert * y as f32 - 250.,
+                        1.,
+                    )),
+                    ..default()
+                });
+            } else {
+                commands.spawn(MaterialMesh2dBundle {
+                    mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
+                    material: materials.add(ColorMaterial::from(Color::BLACK)),
+                    transform: Transform::from_translation(Vec3::new(
+                        horizontal * (0.5 + x as f32) - 500. as f32,
+                        vert * y as f32 - 250.,
+                        0.,
+                    )),
+                    ..default()
+                });
+                commands.spawn(MaterialMesh2dBundle {
+                    mesh: meshes.add(shape::RegularPolygon::new(48., 6).into()).into(),
+                    material: materials.add(ColorMaterial::from(Color::WHITE)),
+                    transform: Transform::from_translation(Vec3::new(
+                        horizontal * (0.5 + x as f32) - 500. as f32,
+                        vert * y as f32 - 250.,
+                        1.,
+                    )),
+                    ..default()
+                });
+            }
+        }
+    }
 }
