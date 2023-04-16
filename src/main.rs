@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 use bevy::sprite::MaterialMesh2dBundle;
+use bevy::window::PresentMode;
 
 #[derive(Component)]
 struct Person;
@@ -38,8 +39,20 @@ impl Plugin for HelloPlugin {
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins)
         .add_startup_system(hex_grid)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "I am a window!".into(),
+                resolution: (1280., 720.).into(),
+                present_mode: PresentMode::AutoVsync,
+                // Tells wasm to resize the window according to the available canvas
+                fit_canvas_to_parent: true,
+                // Tells wasm not to override default event handling, like F5, Ctrl+R etc.
+                prevent_default_event_handling: false,
+                ..default()
+            }),
+            ..default()
+        }))
         .run();
 }
 
@@ -51,7 +64,7 @@ fn hex_grid(
     commands.spawn(Camera2dBundle::default());
     // Hexagon middle
 
-    let grid_height = 9;
+    let grid_height = 8;
     let grid_width = 12;
     let horizontal: f32 = 3.0_f32.sqrt() * 50.0;
     let vert: f32 = 3. / 2. * 50.;
@@ -62,8 +75,8 @@ fn hex_grid(
                     mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
                     material: materials.add(ColorMaterial::from(Color::BLACK)),
                     transform: Transform::from_translation(Vec3::new(
-                        horizontal * (x as f32) - 500. as f32,
-                        vert * y as f32 - 250.,
+                        horizontal * (x as f32) - (1280. / 3.) - horizontal as f32,
+                        vert * y as f32 - (720. / 3.),
                         0.,
                     )),
                     ..default()
@@ -72,8 +85,8 @@ fn hex_grid(
                     mesh: meshes.add(shape::RegularPolygon::new(48., 6).into()).into(),
                     material: materials.add(ColorMaterial::from(Color::WHITE)),
                     transform: Transform::from_translation(Vec3::new(
-                        horizontal * (x as f32) - 500. as f32,
-                        vert * y as f32 - 250.,
+                        horizontal * (x as f32) - (1280. / 3.) - horizontal as f32,
+                        vert * y as f32 - (720. / 3.),
                         1.,
                     )),
                     ..default()
@@ -83,8 +96,8 @@ fn hex_grid(
                     mesh: meshes.add(shape::RegularPolygon::new(50., 6).into()).into(),
                     material: materials.add(ColorMaterial::from(Color::BLACK)),
                     transform: Transform::from_translation(Vec3::new(
-                        horizontal * (0.5 + x as f32) - 500. as f32,
-                        vert * y as f32 - 250.,
+                        horizontal * (0.5 + x as f32) - (1280. / 3.) - horizontal as f32,
+                        vert * y as f32 - (720. / 3.),
                         0.,
                     )),
                     ..default()
@@ -93,8 +106,8 @@ fn hex_grid(
                     mesh: meshes.add(shape::RegularPolygon::new(48., 6).into()).into(),
                     material: materials.add(ColorMaterial::from(Color::WHITE)),
                     transform: Transform::from_translation(Vec3::new(
-                        horizontal * (0.5 + x as f32) - 500. as f32,
-                        vert * y as f32 - 250.,
+                        horizontal * (0.5 + x as f32) - (1280. / 3.) - horizontal as f32,
+                        vert * y as f32 - (720. / 3.),
                         1.,
                     )),
                     ..default()
