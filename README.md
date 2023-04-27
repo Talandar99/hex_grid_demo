@@ -1,5 +1,8 @@
 # hex grid demo
-Rust Hexagonal grid demo created with bevy game engine 
+This is simple attempt to create working and interactive hex grid demo with bevy game engine
+# How to run
+- `cargo run`
+# Links
 - bevy:
 https://bevyengine.org/
 - how hexagonal grids work: 
