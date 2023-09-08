@@ -1,5 +1,5 @@
 # hex grid demo
-This is succesful attempt to create working and interactive hex grid demo with bevy game engine. 
+This is example of working interactive hex grid demo with bevy game engine. 
 # How to run
 - `cargo run`
 # Links
